@@ -1,29 +1,10 @@
 version: '3.9'
 
-networks: 
-  jenkins:
-    name: jenkins  
+networks:
   grid:
     name: grid
-    
-volumes:
-  jenkins_home:
-    
-services:
-  jenkins:
-    user: root
-    container_name: jenkins-master
-    ports:
-      - 8081:8080
-      - 50001:50000
-    networks:
-      - jenkins
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /usr/bin/docker:/usr/bin/docker
-      - /var/run/docker.sock:/var/run/docker.sock
-    image: jenkins/jenkins:lts
-    
+   
+services:    
   selenium-hub:    
     container_name: selenium-hub
     networks:

@@ -7,14 +7,20 @@ pipeline {
     dockerImage = ''
   }
 
-  //Cloning the git branch
-  //stage('Clone repository') {
-  //  checkout scm
-  //}
 
-
-
-  stages {  
+  stages {
+    //Cloning the git branch
+	  stage('Clone repository') {
+	    checkout scm
+	  }
+  
+    // Start docker-compose with 1 instance of Chrome and 1 instance of firefox
+      stage('Start docker-compose') {
+        steps {
+            sh 'docker-compose up -d --scale chrome=1 --scale firefox=1'
+        }
+      }
+  
     stage('Build Image') {
       steps {
         script {
