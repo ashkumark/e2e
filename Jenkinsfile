@@ -28,7 +28,7 @@ pipeline {
       parallel {
         stage('API Automation') {
           agent {
-             label "API Automation"
+             //label "API Automation"
             docker {
               image 'ashkumarkdocker/docker-e2e-automation'
                reuseNode true
@@ -43,7 +43,7 @@ pipeline {
 
       stage('UI Automation - Chrome') {
         agent {
-         label "UI Automation - Chrome"
+         //label "UI Automation"
           docker {
             image 'ashkumarkdocker/docker-e2e-automation'
              reuseNode true
@@ -56,7 +56,7 @@ pipeline {
       }
       stage('UI Automation - Firefox') {
           agent {
-           label "UI Automation - Firefox"
+           //label "UI Automation"
             docker {
               image 'ashkumarkdocker/docker-e2e-automation'
                reuseNode true
