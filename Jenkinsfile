@@ -43,29 +43,31 @@ pipeline {
             sh 'mvn test -Dcucumber.filter.tags="@API"'
           }
         }
-        parallel {
-          stage('UI Automation - Chrome') {
-	        agent {
-	          docker {
-	            image 'ashkumarkdocker/docker-e2e-automation'
-	              args '-v $HOME/.m2:/root/.m2'
-	            }
-	        }
-	        steps {
-            	sh 'mvn test -Dcucumber.filter.tags="@UI" -DHUB_HOST="selenium-hub" -DBROWSER="chrome"'
-           	}
-          }
-          stage('UI Automation - Firefox') {
-	          agent {
-	            docker {
-	              image 'ashkumarkdocker/docker-e2e-automation'
-	              args '-v $HOME/.m2:/root/.m2'
-	            }
-	          }
-	        steps {
-            	sh 'mvn test -Dcucumber.filter.tags="@UI" -DHUB_HOST="selenium-hub" -DBROWSER="firefox"'
-           	}
-          }
+        stage('UI Automation') {
+            parallel {
+              stage('Chrome') {
+                agent {
+                  docker {
+                    image 'ashkumarkdocker/docker-e2e-automation'
+                      args '-v $HOME/.m2:/root/.m2'
+                    }
+                }
+                steps {
+                    sh 'mvn test -Dcucumber.filter.tags="@UI" -DHUB_HOST="selenium-hub" -DBROWSER="chrome"'
+                }
+              }
+              stage('UI Automation - Firefox') {
+                  agent {
+                    docker {
+                      image 'ashkumarkdocker/docker-e2e-automation'
+                      args '-v $HOME/.m2:/root/.m2'
+                    }
+                  }
+                steps {
+                    sh 'mvn test -Dcucumber.filter.tags="@UI" -DHUB_HOST="selenium-hub" -DBROWSER="firefox"'
+                }
+              }
+            }
         }
       }
     }
