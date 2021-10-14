@@ -5,25 +5,25 @@ pipeline {
     uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
     registryCredential = '518637836680'
     dockerImage = ''
+    HUB_HOST = 'selenium-hub'
   }
 
 
   stages {  
-    // Start docker-compose with 1 instance of Chrome and 1 instance of firefox
-      stage('Start docker-compose') {
-        steps {
-            sh 'docker-compose up -d --scale chrome=1 --scale firefox=1'
-        }
-      }
-  
-    stage('Build Image') {
-      steps {
-        script {
-          dockerImage = docker.build("ashkumarkdocker/docker-e2e-automation")
-        }
-      }
-    }
-
+	    // Start docker-compose with 1 instance of Chrome and 1 instance of firefox
+	      stage('Start docker-compose') {
+	        steps {
+	            sh 'docker-compose up -d --scale chrome=1 --scale firefox=1'
+	        }
+	      }
+	  
+	    stage('Build Image') {
+	      steps {
+	        script {
+	          dockerImage = docker.build("ashkumarkdocker/docker-e2e-automation")
+	        }
+	      }
+	    }
    
         stage('API Automation') {
           agent {
