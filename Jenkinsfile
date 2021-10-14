@@ -1,8 +1,5 @@
 pipeline {
-  //agent any
-  //agent {
-  //  label 'aws-jenkins-slave'
- // }
+  agent any
 
   environment {
     uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
@@ -10,12 +7,12 @@ pipeline {
     dockerImage = ''
   }
 
-  /* Cloning the git branch*/
+  //Cloning the git branch
   //stage('Clone repository') {
   //  checkout scm
   //}
 
-  /* Start docker-compose with 1 instance of Chrome and 1 instance of firefox */
+  // Start docker-compose with 1 instance of Chrome and 1 instance of firefox
   stage('Start docker-compose') {
     sh 'docker-compose up -d --scale chrome=1 --scale firefox=1'
   }
@@ -44,12 +41,12 @@ pipeline {
         }
         parallel {
           stage('UI Automation - Chrome') {
-	          agent {
-	            docker {
-	              image 'ashkumarkdocker/docker-e2e-automation'
+	        agent {
+	          docker {
+	            image 'ashkumarkdocker/docker-e2e-automation'
 	              args '-v $HOME/.m2:/root/.m2'
 	            }
-	          }
+	        }
 	        steps {
             	sh 'mvn test -Dcucumber.filter.tags="@UI" -DHUB_HOST="selenium-hub" -DBROWSER="chrome"'
            	}
@@ -69,43 +66,12 @@ pipeline {
       }
     }
 
-/*
-    stage('Push Image') {
-      steps {
-        script {
-          docker.withRegistry("https://" + uri, "ecr:eu-west-2:" + registryCredential) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-  }
-*/
 
  	stage('Docker Teardown') {
-        parallel(
-          "Stop Compose": {
-    		/* Tear down docker compose */
-            sh 'docker-compose down'
-          },
-          "Remove Images": {
-            /* Delete the image which got created earlier */
-            sh 'docker rmi ashkumarkdocker/docker-e2e-automation -f'
-          }
-        )
-    }    
-
-  post {
-    success {
-      // publish html
-      publishHTML target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: false,
-        keepAll: true,
-        reportDir: 'reports',
-        reportFiles: 'index.html',
-        reportName: 'E2E Tests Report'
-      ]
+          /* Tear down docker compose */
+          sh 'docker-compose down'
+          /* Delete the image which got created earlier */
+          sh 'docker rmi ashkumarkdocker/docker-e2e-automation -f'
     }
-  }
-}
+   }
+ }
