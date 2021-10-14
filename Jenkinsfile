@@ -24,8 +24,7 @@ pipeline {
       }
     }
 
-    stage('Run Tests in Parallel') {
-      parallel {
+   
         stage('API Automation') {
           agent {
              //label "API Automation"
@@ -40,7 +39,8 @@ pipeline {
           }
         }
 
-
+ 	stage('Run Tests in Parallel') {
+      parallel {
       stage('UI Automation - Chrome') {
         agent {
          //label "UI Automation"
