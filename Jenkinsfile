@@ -44,8 +44,7 @@ pipeline {
 				sh 'docker-compose down'
 				
 				/* Tear down all containers */
-				sh 'docker kill $(docker ps -q)'
-				sh 'docker rm -f $(docker ps -aq)'
+				sh 'docker-compose rm -sf'
 			}
 		}
 	}	
