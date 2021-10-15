@@ -2,7 +2,6 @@ version: "3.0"
 
 networks: 
   grid:
-    name: grid
     
 services:
   selenium-hub:    
