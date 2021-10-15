@@ -21,24 +21,23 @@ pipeline {
 	   	// Start docker-compose with 1 instance of Chrome and 1 instance of firefox
 	    stage('Start docker-compose') {
 	        steps {
-	            sh 'docker-compose up -d --scale chrome=1 --scale firefox=1'
+	            sh 'docker-compose up -d'
 	        }
 	      }
    
 
- 	stage('Run Tests in Parallel') {
-      parallel {
 	      stage('UI Automation - Chrome') {
 	        steps {
 	            sh 'docker-compose run -e BROWSER="chrome" selenium-test'
 	        }
 	      }
+	      
 	      stage('UI Automation - Firefox') {
 	        steps {
 	            sh 'docker-compose run -e BROWSER="firefox" selenium-test'
 	        }
 	      }   
-      }
+
     }
 
 
@@ -47,8 +46,12 @@ pipeline {
  	  steps {
           /* Tear down docker compose */
           sh 'docker-compose down'
+          
           /* Delete the image which got created earlier */
           //sh 'docker rmi ashkumarkdocker/docker-e2e-automation -f'
+          
+          /* Tear down all containers */
+          sh 'docker rm -f $(docker container ls -aq)'
         }
 
     }
