@@ -1,17 +1,17 @@
-version: '3.0'
+version: "3.0"
 
-networks:
+networks: 
   grid:
-   
-services:    
+    name: grid
+    
+services:
   selenium-hub:    
     container_name: selenium-hub
     networks:
       - grid
     ports:
       - "4444:4444"
-    image: selenium/hub:latest
-    
+    image: selenium/hub:3.141.59
   chrome:    
     networks:
       - grid
@@ -22,8 +22,7 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-    image: selenium/node-chrome-debug:latest
-    
+    image: selenium/node-chrome-debug:3.141.59
   firefox:    
     networks:
       - grid
@@ -34,8 +33,7 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
-    image: selenium/node-firefox-debug:latest
- 
+    image: selenium/node-firefox-debug:3.141.59
   selenium-test:
     networks:
       - grid
@@ -46,5 +44,5 @@ services:
       - firefox
     environment:
       - HUB_HOST=selenium-hub
+      - BROWSER=chrome
     image: ashkumarkdocker/docker-e2e-automation
-    

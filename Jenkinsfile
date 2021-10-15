@@ -1,4 +1,5 @@
 pipeline {
+
 	agent { label 'jenkins-agent' }
 
 	environment {
@@ -9,24 +10,24 @@ pipeline {
 	}
 	
 	stages {
-		// Start docker-compose selenium-hub
-		stage('Start docker-compose') {
-			steps {
-				sh 'docker-compose up -d selenium-hub chrome firefox'
-			}
-		}
-		
-	    stage('Build Image') {
+	
+		stage('Build Image') {
 	       steps {
 	           script {
 	               dockerImage = docker.build("ashkumarkdocker/docker-e2e-automation")
 	           }
 	       }
 	    }
+	    
+		// Start docker-compose selenium-hub
+		stage('Start docker-compose') {
+			steps {
+				sh 'docker-compose up -d'
+			}
+		}
 		
 		stage('UI Automation - Chrome') {
 			steps {		
-			    sh 'docker-compose up selenium-test'	
 				sh 'docker-compose run -e BROWSER="chrome" selenium-test'
 			}
 		}
@@ -41,9 +42,6 @@ pipeline {
 			steps {
 				/* Tear down docker compose */
 				sh 'docker-compose down'
-				
-				/* Delete the image which got created earlier */
-				//sh 'docker rmi ashkumarkdocker/docker-e2e-automation -f'
 				
 				/* Tear down all containers */
 				sh 'docker rm -f $(docker container ls -aq)'
