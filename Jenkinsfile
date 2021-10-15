@@ -25,19 +25,6 @@ pipeline {
 	        }
 	      }
    
-        stage('API Automation') {
-          agent {
-             //label "API Automation"
-            docker {
-              image 'ashkumarkdocker/docker-e2e-automation'
-               reuseNode true
-              args '-v $HOME/.m2:/root/.m2'
-            }
-          }
-          steps {
-            sh 'mvn test -Dcucumber.filter.tags="@API"'
-          }
-        }
 
  	stage('Run Tests in Parallel') {
       parallel {
