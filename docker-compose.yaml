@@ -36,8 +36,7 @@ services:
       - HUB_PORT=4444
     image: selenium/node-firefox-debug:latest
  
-  selenium-test:    
-    container_name: uiautomation
+  selenium-test:
     networks:
       - grid
     volumes:
