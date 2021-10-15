@@ -12,7 +12,7 @@ pipeline {
 		// Start docker-compose selenium-hub
 		stage('Start docker-compose') {
 			steps {
-				sh 'docker-compose up -d selenium-hub'
+				sh 'docker-compose up -d selenium-hub chrome firefox'
 			}
 		}
 		
@@ -25,15 +25,14 @@ pipeline {
 	    }
 		
 		stage('UI Automation - Chrome') {
-			steps {
-				sh 'docker-compose up -d chrome selenium-test'				
+			steps {		
+			    sh 'docker-compose up selenium-test'	
 				sh 'docker-compose run -e BROWSER="chrome" selenium-test'
 			}
 		}
 		
 		stage('UI Automation - Firefox') {
 			steps {
-				sh 'docker-compose up -d firefox'
 				sh 'docker-compose run -e BROWSER="firefox" selenium-test'
 			}
 		}
