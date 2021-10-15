@@ -36,3 +36,16 @@ services:
       - HUB_PORT=4444
     image: selenium/node-firefox-debug:latest
  
+  selenium-test:    
+    container_name: uiautomation
+    networks:
+      - grid
+    volumes:
+      - ./reports:/home/docker-jenkins-test/target
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - HUB_HOST=selenium-hub
+    image: ashkumarkdocker/docker-e2e-automation
+    
