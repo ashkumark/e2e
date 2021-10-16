@@ -37,11 +37,22 @@ services:
     networks:
       - grid
     volumes:
-      - ./reports:/home/docker-jenkins-test/target
+      - ./reports/ui:/home/docker-jenkins-test/target
     depends_on:
       - chrome
       - firefox
     environment:
       - HUB_HOST=selenium-hub
       - BROWSER=chrome
-    image: ashkumarkdocker/docker-e2e-automation
+      - TYPE=ui
+    image: docker-e2e-automation:latest
+  api-test:
+    networks:
+      - grid
+    volumes:
+      - ./reports/api:/home/docker-jenkins-test/target
+    environment:
+      - TYPE=api
+    image: docker-e2e-automation:latest
+    
+    

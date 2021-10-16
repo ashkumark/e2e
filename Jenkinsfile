@@ -14,7 +14,7 @@ pipeline {
 		stage('Build Image') {
 	       steps {
 	           script {
-	               dockerImage = docker.build("ashkumarkdocker/docker-e2e-automation")
+	               dockerImage = docker.build("docker-e2e-automation:latest")
 	           }
 	       }
 	    }
@@ -26,15 +26,21 @@ pipeline {
 			}
 		}
 		
+		stage('API Automation') {
+			steps {		
+				sh 'docker-compose run -e TYPE="@API" api-test'
+			}
+		}
+		
 		stage('UI Automation - Chrome') {
 			steps {		
-				sh 'docker-compose run -e BROWSER="chrome" selenium-test'
+				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" selenium-test '
 			}
 		}
 		
 		stage('UI Automation - Firefox') {
 			steps {
-				sh 'docker-compose run -e BROWSER="firefox" selenium-test'
+				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" selenium-test'
 			}
 		}
 		
