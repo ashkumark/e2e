@@ -48,20 +48,17 @@ pipeline {
 		stage('UI Automation - Chrome') {
 			steps {		
 				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
-			}
-			post {
-			    always {
-    			    publishHTML (
+				
+				publishHTML (
     			    	target : [
     			         allowMissing: false,
-						 alwaysLinkToLastBuild: true,
+						 alwaysLinkToLastBuild: false,
 						 keepAll: true,
-						 reportDir: 'target',
+						 reportDir: reports-volume,
 						 reportFiles: 'ui-test-index.html',
-						 reportName: 'Automation-Reports',
-						 reportTitles: 'Automation-Report-Title'])
-    			}
+						 reportName: 'Automation Reports'])
 			}
+			
 		}
 	/*	
 		stage('UI Automation - Firefox') {
