@@ -45,7 +45,7 @@ pipeline {
 		}
 	*/
 		
-		stage('UI Automation - Chrome') {
+	/*	stage('UI Automation - Chrome') {
 			steps {		
 				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
 				
@@ -60,6 +60,8 @@ pipeline {
 			}
 			
 		}
+	
+	*/
 	/*	
 		stage('UI Automation - Firefox') {
 			steps {
@@ -67,6 +69,38 @@ pipeline {
 			}
 		}
 	*/	
+	
+	stage('UI Tests'){
+       parallel(
+            'UI Automation - Chrome': {
+                sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
+                
+
+                publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                   reportDir: "$PWD/coverage",
+                    reportFiles: "index.html",
+                    reportName: "Coverage Report"
+                ])
+            },
+            'UI Automation - Firefox': {
+                sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" ui-test-service'
+
+                publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                   reportDir: "$PWD/coverage",
+                    reportFiles: "index.html",
+                    reportName: "Coverage Report"
+                ])
+            }
+            
+        )
+	}
+	
 		stage('Docker Teardown') {
 			steps {
 				/* Tear down docker compose */
