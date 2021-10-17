@@ -82,9 +82,9 @@ pipeline {
 	                    allowMissing: false,
 	                    alwaysLinkToLastBuild: false,
 	                    keepAll: true,
-	                   reportDir: "$PWD/coverage",
-	                    reportFiles: "index.html",
-	                    reportName: "Coverage Report"
+	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
+						 reportFiles: 'regression-tests.html',
+						 reportName: 'Automation Reports'
 	                ])
 	
 	        }
@@ -99,9 +99,9 @@ pipeline {
 	                    allowMissing: false,
 	                    alwaysLinkToLastBuild: false,
 	                    keepAll: true,
-	                   reportDir: "$PWD/coverage",
-	                    reportFiles: "index.html",
-	                    reportName: "Coverage Report"
+	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
+						 reportFiles: 'regression-tests.html',
+						 reportName: 'Automation Reports'
 	                ])
 	
 	        }
