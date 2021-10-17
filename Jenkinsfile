@@ -47,7 +47,7 @@ pipeline {
 		
 		stage('UI Automation - Chrome') {
 			steps {		
-				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" selenium-test '
+				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
 			}
 			post {
 			    always {
