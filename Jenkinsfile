@@ -22,6 +22,7 @@ pipeline {
 		// Start docker-compose selenium-hub
 		stage('Start Docker Compose') {
 			steps {
+				sh mkdir reports
 				sh 'docker-compose up -d'
 			}
 		}

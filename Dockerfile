@@ -2,10 +2,10 @@
 
 FROM maven:3.8.3-openjdk-8
 
-WORKDIR /home/docker-jenkins-test
+WORKDIR /docker-jenkins-test
 
-COPY src /home/docker-jenkins-test/src
-COPY pom.xml /home/docker-jenkins-test
+COPY src /docker-jenkins-test/src
+COPY pom.xml /docker-jenkins-test
 
 USER root
 
@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get install -y vim wget curl jq unzip bash --no-install-recommends
     
 # Create a runner script for the entrypoint
-COPY runner.sh /home/docker-jenkins-test
+COPY runner.sh /docker-jenkins-test
 RUN chmod +x ./runner.sh
 
 ENTRYPOINT ["./runner.sh"]

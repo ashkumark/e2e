@@ -51,7 +51,7 @@ services:
     networks:
       - grid
     volumes:
-      - reports-volume:/home/docker-jenkins-test/target
+      - reports-volume:/docker-jenkins-test/reports
     depends_on:
       - chrome-service
       - firefox-service
@@ -65,7 +65,7 @@ services:
     networks:
       - rest
     volumes:
-      - reports-volume:/home/docker-jenkins-test/target
+      - reports-volume:/docker-jenkins-test/reports
     environment:
       - TYPE="@API"
 
