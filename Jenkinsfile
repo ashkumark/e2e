@@ -51,14 +51,15 @@ pipeline {
 			}
 			post {
 			    always {
-    			    publishHTML (target : [
+    			    publishHTML (
+    			    	target : [
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: true,
 						 keepAll: true,
-						 reportDir: 'target',
+						 reportDir: 'target'])
 						 //reportFiles: 'ui-test-index.html',
-						 reportName: 'Automation Reports Name',
-						 reportTitles: 'Automation Report Title'])
+						 //reportName: 'Automation Reports Name',
+						 //reportTitles: 'Automation Report Title'])
     			}
 			}
 		}
