@@ -58,8 +58,8 @@ pipeline {
 						 keepAll: true,
 						 reportDir: 'target',
 						 reportFiles: 'ui-test-index.html',
-						 reportName: 'Automation Reports Name',
-						 reportTitles: 'Automation Report Title'])
+						 reportName: 'Automation-Reports',
+						 reportTitles: 'Automation-Report-Title'])
     			}
 			}
 		}
