@@ -56,10 +56,10 @@ pipeline {
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: true,
 						 keepAll: true,
-						 reportDir: 'target'])
-						 //reportFiles: 'ui-test-index.html',
-						 //reportName: 'Automation Reports Name',
-						 //reportTitles: 'Automation Report Title'])
+						 reportDir: 'target',
+						 reportFiles: 'ui-test-index.html',
+						 reportName: 'Automation Reports Name',
+						 reportTitles: 'Automation Report Title'])
     			}
 			}
 		}
