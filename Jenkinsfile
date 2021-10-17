@@ -54,8 +54,8 @@ pipeline {
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: false,
 						 keepAll: true,
-						 reportDir: reports-volume,
-						 reportFiles: 'ui-test-index.html',
+						 reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
+						 reportFiles: 'regression-tests.html',
 						 reportName: 'Automation Reports'])
 			}
 			
