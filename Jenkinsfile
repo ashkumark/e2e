@@ -26,7 +26,7 @@ pipeline {
 			}
 		}
 		
-		stage('API Automation') {
+	/*	stage('API Automation') {
 			steps {		
 				sh 'docker-compose run -e TYPE="@API" api-test'
 			}
@@ -43,6 +43,7 @@ pipeline {
     			}
 			}
 		}
+	*/
 		
 		stage('UI Automation - Chrome') {
 			steps {		
@@ -54,20 +55,20 @@ pipeline {
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: true,
 						 keepAll: true,
-						 reportDir: 'reports',
+						 reportDir: './reports',
 						 reportFiles: 'ui-test-index.html',
 						 reportName: 'Automation Reports Name',
 						 reportTitles: 'Automation Report Title'])
     			}
 			}
 		}
-		
+	/*	
 		stage('UI Automation - Firefox') {
 			steps {
 				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" selenium-test'
 			}
 		}
-		
+	*/	
 		stage('Docker Teardown') {
 			steps {
 				/* Tear down docker compose */
