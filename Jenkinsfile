@@ -70,35 +70,43 @@ pipeline {
 		}
 	*/	
 	
-	stage('UI Tests'){
-       parallel(
-            'UI Automation - Chrome': {
-                sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
-                
-
-                publishHTML (target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                   reportDir: "$PWD/coverage",
-                    reportFiles: "index.html",
-                    reportName: "Coverage Report"
-                ])
-            },
-            'UI Automation - Firefox': {
-                sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" ui-test-service'
-
-                publishHTML (target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                   reportDir: "$PWD/coverage",
-                    reportFiles: "index.html",
-                    reportName: "Coverage Report"
-                ])
-            }
-            
-        )
+	stage('UI Tests'){	
+       parallel {      
+	  		stage('UI Automation - Chrome') {
+	        steps {
+	
+	           sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
+	                
+	
+	                publishHTML (target: [
+	                    allowMissing: false,
+	                    alwaysLinkToLastBuild: false,
+	                    keepAll: true,
+	                   reportDir: "$PWD/coverage",
+	                    reportFiles: "index.html",
+	                    reportName: "Coverage Report"
+	                ])
+	
+	        }
+	      }
+	
+	      stage('UI Automation - Firefox') {
+	        steps {
+	
+	         sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" ui-test-service'
+	
+	                publishHTML (target: [
+	                    allowMissing: false,
+	                    alwaysLinkToLastBuild: false,
+	                    keepAll: true,
+	                   reportDir: "$PWD/coverage",
+	                    reportFiles: "index.html",
+	                    reportName: "Coverage Report"
+	                ])
+	
+	        }
+	      }        
+       }
 	}
 	
 		stage('Docker Teardown') {
