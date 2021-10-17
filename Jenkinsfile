@@ -6,7 +6,7 @@ pipeline {
 		uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
 		registryCredential = '518637836680'
 		dockerImage = ''
-		HUB_HOST = 'selenium-hub'
+		//HUB_HOST = 'selenium-hub'
 	}
 	
 	stages {
@@ -20,7 +20,7 @@ pipeline {
 	    }
 	    
 		// Start docker-compose selenium-hub
-		stage('Start docker-compose') {
+		stage('Start Docker Compose') {
 			steps {
 				sh 'docker-compose up -d'
 			}
@@ -30,11 +30,35 @@ pipeline {
 			steps {		
 				sh 'docker-compose run -e TYPE="@API" api-test'
 			}
+			post {
+			    always {
+    			    publishHTML (target : [
+    			         allowMissing: false,
+						 alwaysLinkToLastBuild: true,
+						 keepAll: true,
+						 reportDir: 'reports',
+						 reportFiles: 'api-test-index.html',
+						 reportName: 'Automation Reports Name',
+						 reportTitles: 'Automation Report Title'])
+    			}
+			}
 		}
 		
 		stage('UI Automation - Chrome') {
 			steps {		
 				sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" selenium-test '
+			}
+			post {
+			    always {
+    			    publishHTML (target : [
+    			         allowMissing: false,
+						 alwaysLinkToLastBuild: true,
+						 keepAll: true,
+						 reportDir: 'reports',
+						 reportFiles: 'ui-test-index.html',
+						 reportName: 'Automation Reports Name',
+						 reportTitles: 'Automation Report Title'])
+    			}
 			}
 		}
 		

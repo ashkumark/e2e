@@ -2,57 +2,71 @@ version: "3.0"
 
 networks: 
   grid:
-    
+  rest:
+  
+volumes:
+  reports-volume:
+ 
 services:
-  selenium-hub:    
+  selenium-hub-service:    
+    image: selenium/hub:3.141.59
     container_name: selenium-hub
     networks:
       - grid
     ports:
       - "4444:4444"
-    image: selenium/hub:3.141.59
-  chrome:    
+   
+  chrome-service:  
+    image: selenium/node-chrome-debug:3.141.59  
     networks:
       - grid
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - selenium-hub
+      - selenium-hub-service
     environment:
       - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-    image: selenium/node-chrome-debug:3.141.59
-  firefox:    
+    ports:
+     - 5900
+    expose:
+     - "5900"
+
+  firefox-service: 
+    image: selenium/node-firefox-debug:3.141.59   
     networks:
       - grid
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - selenium-hub
+      - selenium-hub-service
     environment:
       - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-    image: selenium/node-firefox-debug:3.141.59
-  selenium-test:
+    ports:
+     - 5900
+    expose:
+     - "5900"
+
+  ui-test-service:
+    image: docker-e2e-automation:latest
     networks:
       - grid
     volumes:
-      - ./reports/ui:/home/docker-jenkins-test/target
+      - reports-volume:/home/docker-jenkins-test/target
     depends_on:
-      - chrome
-      - firefox
+      - chrome-service
+      - firefox-service
     environment:
       - HUB_HOST=selenium-hub
       - BROWSER=chrome
-      - TYPE=ui
+      - TYPE="@UI"
+
+  api-test-service:
     image: docker-e2e-automation:latest
-  api-test:
     networks:
-      - grid
+      - rest
     volumes:
-      - ./reports/api:/home/docker-jenkins-test/target
+      - reports-volume:/home/docker-jenkins-test/target
     environment:
-      - TYPE=api
-    image: docker-e2e-automation:latest
-    
+      - TYPE="@API"
+
     
