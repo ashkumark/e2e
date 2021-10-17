@@ -55,8 +55,8 @@ pipeline {
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: true,
 						 keepAll: true,
-						 reportDir: './reports',
-						 reportFiles: 'ui-test-index.html',
+						 reportDir: 'target',
+						 //reportFiles: 'ui-test-index.html',
 						 reportName: 'Automation Reports Name',
 						 reportTitles: 'Automation Report Title'])
     			}
