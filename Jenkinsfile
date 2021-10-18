@@ -81,10 +81,12 @@ pipeline {
 	                publishHTML (target: [
 	                    allowMissing: false,
 	                    alwaysLinkToLastBuild: false,
+	                    includes: '**/*',
 	                    keepAll: true,
 	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
 						 reportFiles: 'regression-tests.html',
-						 reportName: 'Automation Reports'
+						 reportName: 'Automation Reports',
+						 reportTitles: 'Chrome'
 	                ])
 	
 	        }
@@ -98,10 +100,12 @@ pipeline {
 	                publishHTML (target: [
 	                    allowMissing: false,
 	                    alwaysLinkToLastBuild: false,
+	                    includes: '**/*',
 	                    keepAll: true,
 	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
 						 reportFiles: 'regression-tests.html',
-						 reportName: 'Automation Reports'
+						 reportName: 'Automation Reports',
+						  reportTitles: 'Firefox'
 	                ])
 	
 	        }
