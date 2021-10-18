@@ -77,18 +77,6 @@ pipeline {
 	
 	           sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
 	                
-				cucumber buildStatus: 'UNSTABLE',
-                reportTitle: 'My report',
-                fileIncludePattern: '**/*.json',
-                trendsLimit: 10,
-                classifications: [
-                    [
-                        'key': 'Browser',
-                        'value': 'chrome'
-                    ]
-                ]
-
-	
 	        }
 	      }
 	
@@ -109,9 +97,27 @@ pipeline {
 	                ])
 				*/
 	        }
-	      }        
+	      }    
+	      
+	      post {
+    		always {
+		       cucumber buildStatus: 'test',
+                reportTitle: 'My report',
+                fileIncludePattern: '**/*.json',
+                trendsLimit: 100,
+                sortingMethod: 'ALPHABETICAL',
+                classifications: [
+                    [
+                        'key': 'Browser',
+                        'value': 'Firefox & Chrome'
+                    ]
+                ]
+   			 }
+		}    
        }
 	}
+	
+	
 	
 		stage('Docker Teardown') {
 			steps {
