@@ -77,17 +77,17 @@ pipeline {
 	
 	           sh 'docker-compose run -e TYPE="@UI" -e BROWSER="chrome" ui-test-service'
 	                
-	
-	                publishHTML (target: [
-	                    allowMissing: false,
-	                    alwaysLinkToLastBuild: true,
-	                    includes: '**/*',
-	                    keepAll: true,
-	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
-						 reportFiles: 'regression-tests.html',
-						 reportName: 'Automation Reports',
-						 reportTitles: 'Chrome'
-	                ])
+				cucumber buildStatus: 'UNSTABLE',
+                reportTitle: 'My report',
+                fileIncludePattern: '**/*.json',
+                trendsLimit: 10,
+                classifications: [
+                    [
+                        'key': 'Browser',
+                        'value': 'chrome'
+                    ]
+                ]
+
 	
 	        }
 	      }
