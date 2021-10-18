@@ -80,7 +80,7 @@ pipeline {
 	
 	                publishHTML (target: [
 	                    allowMissing: false,
-	                    alwaysLinkToLastBuild: false,
+	                    alwaysLinkToLastBuild: true,
 	                    includes: '**/*',
 	                    keepAll: true,
 	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
@@ -97,17 +97,17 @@ pipeline {
 	
 	         sh 'docker-compose run -e TYPE="@UI" -e BROWSER="firefox" ui-test-service'
 	
-	                publishHTML (target: [
+	             /*   publishHTML (target: [
 	                    allowMissing: false,
 	                    alwaysLinkToLastBuild: false,
-	                    includes: '**/*',
+	                    includes: '',
 	                    keepAll: true,
 	                    reportDir: '/home/ubuntu/workspace/pipeline-demo/reports/cucumber-html-report',
 						 reportFiles: 'regression-tests.html',
 						 reportName: 'Automation Reports',
 						  reportTitles: 'Firefox'
 	                ])
-	
+				*/
 	        }
 	      }        
        }
