@@ -36,7 +36,7 @@ pipeline {
     			         allowMissing: false,
 						 alwaysLinkToLastBuild: true,
 						 keepAll: true,
-						 reportDir: ${reportsDir},
+						 reportDir: reportsDir,
 						 reportFiles: 'automated-test-report.html',
 						 reportName: 'Automation Reports Name',
 						 reportTitles: 'Automation Report Title'])
