@@ -102,7 +102,7 @@ pipeline {
        
        post {
     		always {
-		       cucumber buildStatus: 'test',
+		       cucumber buildStatus: 'UNSTABLE',
                 reportTitle: 'My report',
                 fileIncludePattern: '**/*.json',
                 trendsLimit: 100,
