@@ -28,7 +28,7 @@ pipeline {
 		
 	stage('API Automation') {
 			steps {		
-				sh 'docker-compose run -e TYPE="@API" api-test'
+				sh 'docker-compose run -e TYPE="@API" api-test-service'
 			}
 			post {
 			    always {
