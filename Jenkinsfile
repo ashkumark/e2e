@@ -97,9 +97,10 @@ pipeline {
 	                ])
 				*/
 	        }
-	      }    
-	      
-	      post {
+	      }       
+       }
+       
+       post {
     		always {
 		       cucumber buildStatus: 'test',
                 reportTitle: 'My report',
@@ -113,8 +114,7 @@ pipeline {
                     ]
                 ]
    			 }
-		}    
-       }
+		} 
 	}
 	
 	
