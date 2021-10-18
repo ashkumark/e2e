@@ -105,7 +105,7 @@ pipeline {
 		       cucumber buildStatus: 'UNSTABLE',
                 reportTitle: 'My report',
                 fileIncludePattern: '.**/*.json',
-                josnReportDirectory: '/docker-jenkins-test/target',
+                jsonReportDirectory: '/docker-jenkins-test/target',
                 trendsLimit: 100,
                 sortingMethod: 'ALPHABETICAL',
                 classifications: [
